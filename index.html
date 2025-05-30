@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة التعلم الشامل</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .category-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .levels-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .level-badge {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .ai-features {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .ai-features h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-item.blue {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+
+        .feature-item.purple {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #333;
+        }
+
+        .feature-item.orange {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            color: #333;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .demo-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .demo-btn.active {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+        }
+
+        .demo-content {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .accessibility-controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .accessibility-controls h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .control-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .accessibility-controls {
+                position: relative;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="accessibility-controls">
+        <h3>أدوات الوصول</h3>
+        <button class="control-btn" onclick="increaseFontSize()">أ+</button>
+        <button class="control-btn" onclick="decreaseFontSize()">أ-</button>
+        <button class="control-btn" onclick="toggleHighContrast()">تباين عالي</button>
+        <button class="control-btn" onclick="readContent()">🔊 قراءة</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>منصة التعلم الشامل</h1>
+            <p>تعليم مخصص لكل طالب بتقنية الذكاء الاصطناعي</p>
+        </div>
+
+        <div class="categories-grid">
+            <div class="category-card" onclick="selectCategory('hearing')">
+                <span class="category-icon">👂</span>
+                <div class="category-title">ضعاف السمع والصم</div>
+                <div class="category-description">
+                    محتوى تعليمي بلغة الإشارة، نصوص تفاعلية، وشروحات بصرية مبسطة
+                </div>
+                <div class="levels-container">
+                    <span class="level-badge">مستوى أول</span>
+                    <span class="level-badge">مستوى ثاني</span>
+                    <span class="level-badge">متقدم</span>
+                </div>
+            </div>
+
+            <div class="category-card" onclick="selectCategory('visual')">
+                <span class="category-icon">👁️</span>
+                <div class="category-title">ضعاف البصر والمكفوفين</div>
+                <div class="category-description">
+                    محتوى صوتي، برايل رقمي، ووصف تفصيلي للمحتوى البصري
+                </div>
+                <div class="levels-container">
+                    <span class="level-badge">ضعف بصري</span>
+                    <span class="level-badge">كف كلي</span>
+                    <span class="level-badge">كف جزئي</span>
+                </div>
+            </div>
+
+            <div class="category-card" onclick="selectCategory('speech')">
+                <span class="category-icon">🗣️</span>
+                <div class="category-title">صعوبات النطق والكلام</div>
+                <div class="category-description">
+                    تدريبات النطق التفاعلية، تقنيات التواصل البديل، وأنشطة تطوير اللغة
+                </div>
+                <div class="levels-container">
+                    <span class="level-badge">تأخر لغوي</span>
+                    <span class="level-badge">اضطراب نطق</span>
+                    <span class="level-badge">بكم</span>
+                </div>
+            </div>
+
+            <div class="category-card" onclick="selectCategory('cognitive')">
+                <span class="category-icon">🧠</span>
+                <div class="category-title">الإعاقات الذهنية والتطورية</div>
+                <div class="category-description">
+                    محتوى مبسط، أنشطة تفاعلية، وتعلم تدريجي حسب القدرات الفردية
+                </div>
+                <div class="levels-container">
+                    <span class="level-badge">إعاقة بسيطة</span>
+                    <span class="level-badge">إعاقة متوسطة</span>
+                    <span class="level-badge">متلازمات</span>
+                </div>
+            </div>
+
+            <div class="category-card" onclick="selectCategory('motor')">
+                <span class="category-icon">🦽</span>
+                <div class="category-title">الإعاقات الحركية</div>
+                <div class="category-description">
+                    واجهات تفاعلية مخصصة، تحكم بالعين والصوت، وأدوات مساعدة رقمية
+                </div>
+                <div class="levels-container">
+                    <span class="level-badge">حركي جزئي</span>
+                    <span class="level-badge">شلل دماغي</span>
+                    <span class="level-badge">بتر</span>
+                </div>
+            </div>
+
+            <div class="category-card" onclick="selectCategory('learning')">
+                <span class="category-icon">📚</span>
+                <div class="category-title">صعوبات التعلم</div>
+                <div class="category-description">
+                    برامج تعليمية مخصصة لعسر القراءة، الحساب، والانتباه
+                </div>
+                <div class="levels-container">
+                    <span class="level-badge">ديسلكسيا</span>
+                    <span class="level-badge">فرط حركة</span>
+                    <span class="level-badge">تشتت انتباه</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-features">
+            <h2>مميزات الذكاء الاصطناعي في المنصة</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>تقييم شخصي</h3>
+                    <p>تحليل قدرات كل طالب وتخصيص المحتوى المناسب</p>
+                </div>
+                <div class="feature-item blue">
+                    <h3>مساعد ذكي</h3>
+                    <p>مساعد AI يجيب على الأسئلة ويقدم الدعم 24/7</p>
+                </div>
+                <div class="feature-item purple">
+                    <h3>تتبع التقدم</h3>
+                    <p>مراقبة مستمرة للتطور وتعديل الخطة التعليمية</p>
+                </div>
+                <div class="feature-item orange">
+                    <h3>محتوى تفاعلي</h3>
+                    <p>ألعاب تعليمية وأنشطة تفاعلية مخصصة</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #333;">تجربة تفاعلية</h2>
+            <div class="demo-controls">
+                <button class="demo-btn active" onclick="showDemo('hearing')">محاكاة للصم</button>
+                <button class="demo-btn" onclick="showDemo('visual')">محاكاة للمكفوفين</button>
+                <button class="demo-btn" onclick="showDemo('cognitive')">محاكاة الإعاقة الذهنية</button>
+            </div>
+            <div class="demo-content" id="demoContent">
+                <div style="text-align: center;">
+                    <h3>مرحباً بك في درس الرياضيات!</h3>
+                    <p>سنتعلم اليوم عملية الجمع بطريقة بصرية وتفاعلية</p>
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px;">
+                        <span style="font-size: 2rem;">🍎🍎</span>
+                        <span style="font-size: 2rem;">+</span>
+                        <span style="font-size: 2rem;">🍎🍎🍎</span>
+                        <span style="font-size: 2rem;">=</span>
+                        <span style="font-size: 2rem;">🍎🍎🍎🍎🍎</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let fontSize = 16;
+        let highContrast = false;
+
+        function selectCategory(category) {
+            alert(`تم اختيار فئة: ${getCategoryName(category)}\nسيتم توجيهك إلى المحتوى المخصص قريباً!`);
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                'hearing': 'ضعاف السمع والصم',
+                'visual': 'ضعاف البصر والمكفوفين',
+                'speech': 'صعوبات النطق والكلام',
+                'cognitive': 'الإعاقات الذهنية والتطورية',
+                'motor': 'الإعاقات الحركية',
+                'learning': 'صعوبات التعلم'
+            };
+            return names[category] || category;
+        }
+
+        function increaseFontSize() {
+            fontSize += 2;
+            document.body.style.fontSize = fontSize + 'px';
+        }
+
+        function decreaseFontSize() {
+            if (fontSize > 12) {
+                fontSize -= 2;
+                document.body.style.fontSize = fontSize + 'px';
+            }
+        }
+
+        function toggleHighContrast() {
+            highContrast = !highContrast;
+            if (highContrast) {
+                document.body.style.filter = 'contrast(150%) brightness(1.2)';
+            } else {
+                document.body.style.filter = 'none';
+            }
+        }
+
+        function readContent() {
+            if ('speechSynthesis' in window) {
+                const text = document.querySelector('.header h1').textContent + '. ' + 
+                           document.querySelector('.header p').textContent;
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('خاصية القراءة غير متوفرة في هذا المتصفح');
+            }
+        }
+
+        function showDemo(type) {
+            // Update active button
+            document.querySelectorAll('.demo-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const demoContent = document.getElementById('demoContent');
+            
+            const demos = {
+                'hearing': `
+                    <div style="text-align: center;">
+                        <h3>درس للطلاب الصم - لغة الإشارة</h3>
+                        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                            <p style="font-size: 1.2rem; margin-bottom: 15px;">👋 مرحباً (إشارة الترحيب)</p>
+                            <p style="font-size: 1.2rem; margin-bottom: 15px;">📚 كتاب (إشارة الكتاب)</p>
+                            <p style="font-size: 1.2rem;">✏️ قلم (إشارة القلم)</p>
+                        </div>
+                        <p>المحتوى مدعوم بفيديوهات لغة الإشارة وترجمة فورية</p>
+                    </div>
+                `,
+                'visual': `
+                    <div style="text-align: center;">
+                        <h3>درس للطلاب المكفوفين - محتوى صوتي</h3>
+                        <div style="background: #fff3e0; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                            <p style="font-size: 1.2rem; margin-bottom: 15px;">🔊 "مرحباً بك عزيزي الطالب"</p>
+                            <p style="font-size: 1.2rem; margin-bottom: 15px;">🔊 "اليوم سنتعلم الحروف الأبجدية"</p>
+                            <p style="font-size: 1.2rem;">🔊 "اضغط على الحرف لسماع نطقه"</p>
+                        </div>
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <button onclick="playSound('أ')" style="padding: 10px 15px; font-size: 1.5rem;">أ</button>
+                            <button onclick="playSound('ب')" style="padding: 10px 15px; font-size: 1.5rem;">ب</button>
+                            <button onclick="playSound('ت')" style="padding: 10px 15px; font-size: 1.5rem;">ت</button>
+                        </div>
+                    </div>
+                `,
+                'cognitive': `
+                    <div style="text-align: center;">
+                        <h3>درس مبسط للإعاقة الذهنية</h3>
+                        <div style="background: #f1f8e9; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                            <p style="font-size: 1.5rem; margin-bottom: 20px;">🌟 تعلم الألوان 🌟</p>
+                            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                                <div onclick="colorGame('أحمر')" style="width: 60px; height: 60px; background: red; border-radius: 50%; cursor: pointer; border: 3px solid white;"></div>
+                                <div onclick="colorGame('أزرق')" style="width: 60px; height: 60px; background: blue; border-radius: 50%; cursor: pointer; border: 3px solid white;"></div>
+                                <div onclick="colorGame('أخضر')" style="width: 60px; height: 60px; background: green; border-radius: 50%; cursor: pointer; border: 3px solid white;"></div>
+                            </div>
+                            <p style="margin-top: 15px;">اضغط على اللون لتسمع اسمه!</p>
+                        </div>
+                    </div>
+                `
+            };
+
+            demoContent.innerHTML = demos[type];
+        }
+
+        function playSound(letter) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(`حرف ${letter}`);
+                utterance.lang = 'ar-SA';
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        function colorGame(color) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(`لون ${color}`);
+                utterance.lang = 'ar-SA';
+                speechSynthesis.speak(utterance);
+            }
+            alert(`أحسنت! هذا لون ${color}`);
+        }
+
+        // Initialize demo
+        showDemo('hearing');
+    </script>
+</body>
+</html>
